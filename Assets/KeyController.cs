@@ -16,7 +16,7 @@ public class KeyController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void InputKey()
@@ -27,5 +27,6 @@ public class KeyController : MonoBehaviour
     public void ChangeColor(Color32 color)
     {
         gameObject.GetComponent<Image>().color = color;
+        _text.color = new Color32(255, 255, 255, 255);
     }
 }
