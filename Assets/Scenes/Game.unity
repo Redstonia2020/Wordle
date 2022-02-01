@@ -16970,6 +16970,7 @@ MonoBehaviour:
   - {fileID: 827717073}
   - {fileID: 69951998}
   - {fileID: 949813163}
+  _keyboard: {fileID: 814836030}
 --- !u!4 &1862827206
 Transform:
   m_ObjectHideFlags: 0

@@ -116,7 +116,14 @@ public class GameController : MonoBehaviour
 
     private void ChangeKeyboardColor(string key, Color32 color)
     {
-        _keyboard.transform.Find(key).GetComponent<KeyController>().ChangeColor(color);
+        foreach (Transform child in _keyboard.transform)
+        {
+            var potentialSubject = child.Find(key);
+            if (potentialSubject != null)
+            {
+                potentialSubject.GetComponent<KeyController>().ChangeColor(color);
+            }
+        }
     }
 
     private void ResetWord()
