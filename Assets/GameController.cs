@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public string Word = "ADEIU";
+    public string Word = "ADIEU";
 
     [SerializeField]
     private GuessController[] _guessControllers = new GuessController[6];
@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Word = WordExtractor.GetWord();
         _inputtingGuess = 0;
         ResetWord();
     }
@@ -70,7 +71,15 @@ public class GameController : MonoBehaviour
     {
         if (_inputtingLetter > 4)
         {
-            StartCoroutine(Check());
+            if (WordExtractor.IsValidWord(_guess))
+            {
+                StartCoroutine(Check());
+            }
+
+            else
+            {
+                StartCoroutine(_guessControllers[_inputtingGuess].ShakeIncorrect());
+            }
         }
     }
 
