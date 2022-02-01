@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void OnGUI()
@@ -34,22 +34,41 @@ public class GameController : MonoBehaviour
         if (e.isKey && Input.anyKeyDown)
         {
             KeyCode key = e.keyCode;
-            if (key.ToString().Length == 1 && _inputtingLetter < 5)
-            {
-                _guessControllers[_inputtingGuess].AddLetter(key.ToString(), _inputtingLetter++);
-                _guess += key.ToString();
-            }
 
-            else if (key == KeyCode.Backspace && _inputtingLetter > 0)
-            {
-                _guessControllers[_inputtingGuess].RemoveLetter(--_inputtingLetter);
-                _guess = _guess.Substring(0, _inputtingLetter);
-            }
+            if (key.ToString().Length == 1)
+                AddLetter(key.ToString());
 
-            else if (key == KeyCode.Return && _inputtingLetter > 4)
-            {
-                StartCoroutine(Check());
-            }
+            else if (key == KeyCode.Backspace)
+                RemoveLetter();
+
+            else if (key == KeyCode.Return)
+                StartCheck();
+        }
+    }
+
+    public void AddLetter(string letter)
+    {
+        if (_inputtingLetter < 5)
+        {
+            _guessControllers[_inputtingGuess].AddLetter(letter, _inputtingLetter++);
+            _guess += letter;
+        }
+    }
+
+    public void RemoveLetter()
+    {
+        if (_inputtingLetter > 0)
+        {
+            _guessControllers[_inputtingGuess].RemoveLetter(--_inputtingLetter);
+            _guess = _guess.Substring(0, _inputtingLetter);
+        }
+    }
+
+    public void StartCheck()
+    {
+        if (_inputtingLetter > 4)
+        {
+            StartCoroutine(Check());
         }
     }
 
@@ -95,7 +114,7 @@ public class GameController : MonoBehaviour
         _inputtingLetter = 0;
         _guess = "";
     }
-    
+
     private void Win()
     {
         StartCoroutine(WinAnimation());
