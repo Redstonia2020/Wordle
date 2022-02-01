@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public static class WordExtractor
@@ -29,8 +30,9 @@ public static class WordExtractor
             return true;
         }
 
-        string[] _allPotentialWords = File.ReadAllLines(_validGuesses);
-        if (Array.Exists(_allPotentialWords, e => e.ToUpper() == word))
+        List<string> _allPotentialWords = File.ReadAllLines(_validGuesses).ToList();
+        _allPotentialWords.AddRange(File.ReadAllLines(_answers).ToList());
+        if (_allPotentialWords.Contains(word))
         {
             return true;
         }
