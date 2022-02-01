@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeyController : MonoBehaviour
 {
@@ -21,5 +22,10 @@ public class KeyController : MonoBehaviour
     public void InputKey()
     {
         GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().AddLetter(gameObject.name);
+    }
+
+    public void ChangeColor(Color32 color)
+    {
+        gameObject.GetComponent<Image>().color = color;
     }
 }

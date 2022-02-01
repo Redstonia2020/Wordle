@@ -79,13 +79,13 @@ public class LetterController : MonoBehaviour
     {
         for (int i = 0; i < _bounceSteps; i++)
         {
-            transform.position += new Vector3(0, 0.35f / _bounceSteps, 0);
+            transform.position += new Vector3(0, 0.5f / _bounceSteps, 0);
             yield return new WaitForSeconds(_bounceDuration / _bounceSteps);
         }
 
         for (int i = 0; i < _bounceSteps; i++)
         {
-            transform.position -= new Vector3(0, 0.35f / _bounceSteps, 0);
+            transform.position -= new Vector3(0, 0.5f / _bounceSteps, 0);
             yield return new WaitForSeconds(_bounceDuration / _bounceSteps);
         }
     }

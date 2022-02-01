@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private GuessController[] _guessControllers = new GuessController[6];
+    [SerializeField]
+    private GameObject _keyboard;
 
     private int _inputtingGuess;
     private int _inputtingLetter;
@@ -83,16 +85,19 @@ public class GameController : MonoBehaviour
             if (Word[i] == _guess[i])
             {
                 yield return StartCoroutine(letter.TurnGreen());
+                ChangeKeyboardColor(_guess[i].ToString(), new Color32(109, 170, 102, 255));
             }
 
             else if (Word.Contains(_guess[i].ToString()))
             {
                 yield return StartCoroutine(letter.TurnYellow());
+                ChangeKeyboardColor(_guess[i].ToString(), new Color32(204, 181, 90, 255));
             }
 
             else
             {
                 yield return StartCoroutine(letter.TurnGrey());
+                ChangeKeyboardColor(_guess[i].ToString(), new Color32(123, 123, 123, 255));
             }
         }
 
@@ -107,6 +112,11 @@ public class GameController : MonoBehaviour
             ResetWord();
             _isBusyAnimating = false;
         }
+    }
+
+    private void ChangeKeyboardColor(string key, Color32 color)
+    {
+        _keyboard.transform.Find(key).GetComponent<KeyController>().ChangeColor(color);
     }
 
     private void ResetWord()
@@ -127,7 +137,7 @@ public class GameController : MonoBehaviour
             foreach (LetterController letter in guess._letters)
             {
                 StartCoroutine(letter.Bounce());
-                yield return new WaitForSeconds(0.02f);
+                yield return new WaitForSeconds(0.015f);
             }
         }
     }
